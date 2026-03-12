@@ -1,0 +1,20 @@
+/* src/index.css */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+
+/* Import Tailwind v4 */
+@import "tailwindcss";
+
+/* Define custom theme variables for Tailwind v4 */
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --color-mino-bg: #0a0a0a;
+  --color-mino-text: #f4f4f4;
+  --color-mino-accent: #888888;
+}
+
+/* Base styles for the dark theme */
+@layer base {
+  body {
+    @apply bg-mino-bg text-mino-text font-sans antialiased overflow-x-hidden;
+  }
+}
