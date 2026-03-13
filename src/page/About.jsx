@@ -1,70 +1,47 @@
-import React, { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
 const About = () => {
-  const container = useRef(null);
+  const p1Ref = useRef(null);
+  const p2Ref = useRef(null);
 
-  useGSAP(() => {
-    const tl = gsap.timeline();
-    
-    // Animate the main center titles first
-    tl.from('.center-text', {
-      y: 50,
-      opacity: 0,
-      duration: 1.2,
-      stagger: 0.2,
-      ease: 'power3.out',
-    })
-    // Animate the bottom footer elements right after
-    .from('.bottom-element', {
-      y: 20,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.15,
-      ease: 'power2.out',
-    }, "-=0.6"); // The "-=0.6" makes this animation overlap with the previous one
-  }, { scope: container });
+  useEffect(() => {
+    const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 1.2 } });
+
+    tl.fromTo(p1Ref.current, 
+      { y: 30, opacity: 0 }, 
+      { y: 0, opacity: 1 }
+    )
+    .fromTo(p2Ref.current, 
+      { y: 30, opacity: 0 }, 
+      { y: 0, opacity: 1 }, 
+      '-=0.8'
+    );
+  }, []);
 
   return (
-    <section 
-      ref={container} 
-      className="relative h-screen w-full bg-[#111111] text-[#e8e8e8] flex flex-col justify-center items-center overflow-hidden"
-    >
-      {/* --- CENTER TITLES --- */}
-      <div className="flex flex-col items-center z-10 mt-12 md:mt-0">
-        <h1 className="center-text text-[20vw] md:text-[14rem] font-serif leading-none tracking-tight">
-          MINO
-        </h1>
-        <p className="center-text mt-2 md:mt-6 text-xs md:text-sm tracking-[0.5em] md:tracking-[0.8em] uppercase text-gray-400">
-          Studio
-        </p>
-      </div>
-
-      {/* --- BOTTOM LAYOUT --- */}
-      {/* Using a 3-column grid on desktop, stacking on mobile */}
-      <div className="absolute bottom-8 md:bottom-12 w-full px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 items-end gap-8 z-10">
+    // Adjusted background to a light off-white/gray to match the image
+    <div className="min-h-screen bg-[#f4f4f5] text-gray-900 font-sans px-6 py-24 flex items-center justify-center selection:bg-gray-300">
+      
+      {/* Main container holding both paragraphs */}
+      <div className="w-full max-w-7xl flex flex-col gap-24 md:gap-32"> 
         
-        {/* Left: Indicator */}
-        <div className="bottom-element text-xs md:text-sm uppercase tracking-widest text-gray-400 hidden md:block">
-          (Statement)
-        </div>
-
-        {/* Center: Paragraph */}
-        <div className="bottom-element flex justify-center md:justify-start">
-          <p className="max-w-md text-sm md:text-base leading-relaxed text-gray-300">
-            Architecture is not merely about constructing buildings; it is about crafting environments that resonate with the human spirit. At Mino Studio, we believe that every project presents a unique opportunity to harmonize form and function, creating spaces that inspire and elevate everyday experiences.
+        {/* First Paragraph: Left Indented */}
+        <div ref={p1Ref} className="w-full max-w-5xl self-start text-left">
+          <p className="text-2xl md:text-3xl lg:text-[2.5rem] font-medium leading-[1.2] tracking-tight">
+            We are a team of storytellers, innovators, and digital artists from diverse fields united by a singular purpose: to redifine how your projects are visualized and experienced.
           </p>
         </div>
 
-        {/* Right: Scroll Indicator & Mobile Statement */}
-        <div className="bottom-element flex justify-between md:justify-end text-xs md:text-sm uppercase tracking-widest text-gray-400">
-          <span className="md:hidden">(Statement)</span>
-          <span>(Scroll Down)</span>
+        {/* Second Paragraph: Right Indented */}
+        <div ref={p2Ref} className="w-full max-w-5xl self-end text-right">
+          <p className="text-2xl md:text-3xl lg:text-[2.5rem] font-medium leading-[1.2] tracking-tight">
+            At iPoly Studio, we fuse strategic insight with the art of visual storytelling. We craft the narratives that turn architectural visions into living experiences, elevating your project to your highest potential.
+          </p>
         </div>
-
+        
       </div>
-    </section>
+    </div>
   );
 };
 
