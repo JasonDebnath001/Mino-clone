@@ -1,5 +1,6 @@
 // src/components/Navbar.jsx
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -12,12 +13,12 @@ const Navbar = () => {
         <a href="#works" className="hover:text-gray-300 transition-colors">
           Works
         </a>
-        <a href="#services" className="hover:text-gray-300 transition-colors">
+        <Link to="/services" className="hover:text-gray-300 transition-colors">
           Services
-        </a>
-        <a href="#about" className="hover:text-gray-300 transition-colors">
+        </Link>
+        <Link to="/about" className="hover:text-gray-300 transition-colors">
           About
-        </a>
+        </Link>
         <a href="#careers" className="hover:text-gray-300 transition-colors">
           Careers
         </a>

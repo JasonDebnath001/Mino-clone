@@ -1,24 +1,25 @@
-import React from 'react'
-import Hero from './component/Hero'
-import Navbar from './component/Navbar'
-import Statement from './component/Statement'
-import StoriesReveal from './component/StoriesReveal'
-import Mission from './component/Mission'
-import TrustReveal from './component/TrustReveal'
-import Footer from './component/Footer'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./component/Navbar";
+import Footer from "./component/Footer";
+import Home from "./page/Home";
+import About from "./page/About";
+import Services from "./page/Services";
 
 const App = () => {
   return (
-    <main>
-      <Navbar />
-      <Hero />
-      <Statement />
-      <StoriesReveal />
-      <Mission />
-      <TrustReveal />
-      <Footer />
-    </main>
-  )
-}
+    <Router>
+      <main>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+        </Routes>
+        <Footer />
+      </main>
+    </Router>
+  );
+};
 
-export default App
+export default App;
