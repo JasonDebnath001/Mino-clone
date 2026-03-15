@@ -3,27 +3,37 @@ import { gsap } from "gsap";
 
 // Data structure holding all the services content
 const servicesData = {
-  "Brand Identity": {
-    title: "Brand Identity",
+  "Interactive Immersive Experiences": {
+    title: "Intereactive Immersive Experiences",
     description: [
-      "Your brand is the silent ambassador of your project. It shapes perception, builds trust, and creates a visual language that audiences recognize and remember at another level.",
-      "We develop brand identities that are intentional, timeless, and aligned with your architectural and commercial goals. Built to elevate every touchpoint.",
+      "Real-time, interactive experiences that let clients explore architecture, not imagine it.",
+      "Built in Unreal Engine, these experiences allow real-time navigation, lighting-changes, and fast design variantion.",
     ],
     // Using placeholder videos that match the vibe of the reference
     videos: [
       "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4", // Placeholder video
-      "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4", // Placeholder video
+      "/Animation.mp4", // Local public asset
     ],
   },
-  Images: {
-    title: "Images",
+  "CGI and Still Imagery": {
+    title: "CGI and Still Imagery",
     description: [
-      "Striking visuals that capture the essence of your vision. We create high-end imagery that speaks louder than words.",
-      "From photorealistic renders to stylized artistic interpretations, our images are crafted to inspire and engage.",
+      "High end architectural imagery designed to sell spaces before they exists.",
+      "We create photoreal visuals that communicate atmosphere, scale, and materiality, helping clients make confident decisions and attract buyers faster.",
     ],
-    videos: [
-      "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
-      "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4",
+    videos: ["./newVideo.mp4"],
+    images: [
+      "/ext01_v2.jpg",
+      "/ext03_v1_version2.jpg",
+      "/ext05_v1_version2.jpg",
+      "ISSEI_1.jpg",
+      "ISSEI_2.jpg",
+      "ISSEI_3.jpg",
+      "ISSEI_4.jpg",
+      "ISSEI_5.jpg",
+      "ISSEI_6.jpg",
+      "invisibleHouse_day.jpg",
+      "invisibleHouse_night.jpg",
     ],
   },
   Film: {
@@ -77,6 +87,11 @@ const Services = () => {
   }, [activeService]);
 
   const activeData = servicesData[activeService];
+
+  const mediaItems = [
+    ...(activeData.videos ?? []).map((src) => ({ type: "video", src })),
+    ...(activeData.images ?? []).map((src) => ({ type: "image", src })),
+  ];
 
   return (
     <div className="min-h-screen bg-[#f4f4f5] text-gray-900 font-sans px-8 py-24 flex selection:bg-gray-300">
@@ -136,27 +151,38 @@ const Services = () => {
                 ))}
 
                 {/* View All Button */}
-                <div className="flex xl:justify-end w-full mt-4">
+                {/* <div className="flex xl:justify-end w-full mt-4">
                   <button className="bg-[#1f1f1f] text-white px-7 py-2.5 rounded-full text-xs font-semibold tracking-widest hover:bg-black transition-colors">
                     VIEW ALL
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
 
-          {/* Bottom Section: Video Grid */}
+          {/* Bottom Section: Media Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-1 w-full">
-            {activeData.videos.map((videoSrc, idx) => (
+            {mediaItems.map((item, idx) => (
               <div
                 key={idx}
                 className="w-full aspect-[4/3] bg-gray-200 overflow-hidden relative"
               >
-                <video
-                  src={videoSrc}
-                  className="w-full h-full object-cover"
-                  controls
-                />
+                {item.type === "video" ? (
+                  <video
+                    src={item.src}
+                    className="w-full h-full object-cover"
+                    autoPlay
+                    muted
+                    playsInline
+                    loop
+                  />
+                ) : (
+                  <img
+                    src={item.src}
+                    alt={`${activeData.title} ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                )}
 
                 {/* Optional subtle overlay text based on the image reference (e.g., "WEST RESIDENCES") */}
                 <div className="absolute inset-0 flex items-end justify-center pb-8 opacity-80 mix-blend-overlay">
