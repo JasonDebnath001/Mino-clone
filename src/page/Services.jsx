@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { Pannellum } from "pannellum-react";
 
 // Data structure holding all the services content
 const servicesData = {
@@ -12,7 +13,7 @@ const servicesData = {
     // Using placeholder videos that match the vibe of the reference
     videos: [
       "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4", // Placeholder video
-      "/Animation.mp4", // Local public asset
+      "https://res.cloudinary.com/dxzuvk7np/video/upload/v1773596848/Animation_hcob1j.mp4", // Local public asset
     ],
   },
   "CGI and Still Imagery": {
@@ -21,52 +22,80 @@ const servicesData = {
       "High end architectural imagery designed to sell spaces before they exists.",
       "We create photoreal visuals that communicate atmosphere, scale, and materiality, helping clients make confident decisions and attract buyers faster.",
     ],
-    videos: ["./newVideo.mp4"],
+    videos: [
+      "https://res.cloudinary.com/dxzuvk7np/video/upload/v1773597140/newVideo_gaoqa4.mp4",
+    ],
     images: [
-      "/ext01_v2.jpg",
-      "/ext03_v1_version2.jpg",
-      "/ext05_v1_version2.jpg",
-      "ISSEI_1.jpg",
-      "ISSEI_2.jpg",
-      "ISSEI_3.jpg",
-      "ISSEI_4.jpg",
-      "ISSEI_5.jpg",
-      "ISSEI_6.jpg",
-      "invisibleHouse_day.jpg",
-      "invisibleHouse_night.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773597263/ext01_v2_ckanwp.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773597263/ext05_v1_version2_h4kfie.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773641424/ext05_v1_version2_g6irpj.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773641468/ISSEI_5_ucuzyb.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773641472/ISSEI_6_g3em3n.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773641482/ISSEI_4_bztgdy.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773641483/ISSEI_1_yoqdtz.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773641484/ISSEI_3_kugng6.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773641490/ISSEI_2_vmxftq.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773641570/invisibleHouse_day_uvztih.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773641573/invisibleHouse_night_ewddyv.jpg",
     ],
   },
-  Film: {
-    title: "Film",
+  "Cinematic Animations": {
+    title: "Cinematic Animations",
     description: [
-      "Motion brings spaces to life. Our films tell compelling stories, guiding viewers through an emotional journey.",
-      "We combine cinematic techniques with architectural understanding to produce films that leave a lasting impact.",
+      "Architectural stories told through motion.",
+      "We create cinematic animations that create space, scale, and atmosphere through carefully crafted camera movement, lighting, and pacing, turning architectural concepts into compelling visual narratives.",
     ],
     videos: [
-      "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+      "https://res.cloudinary.com/dxzuvk7np/video/upload/v1773596848/Animation_hcob1j.mp4",
       "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4",
     ],
   },
-  "Immersive Experience": {
-    title: "Immersive Experience",
+  "Virtual Tours": {
+    title: "Vitual Tours",
     description: [
-      "Step into the future with fully interactive, immersive digital environments that allow clients to explore spaces before they exist.",
-      "Utilizing cutting-edge real-time technology to deliver unforgettable virtual experiences.",
+      "Our vitual tours allow users navigate projects intuitively, gaining a clear understanding of layout, proportions, and spatial relationships.",
+      "Ideal for presentations, client reviews, and remote decision-making.",
     ],
-    videos: [
-      "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
-      "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4",
+    media: [
+      {
+        type: "360",
+        images: [
+          "./cam 1 360_finale.jpg",
+          "./cam 2 360_finale.jpg",
+          "./cam espace office 360_finale.jpg",
+        ],
+      },
+      { type: "360", images: ["./bedroom.jpg"] },
     ],
   },
-  "Website Design": {
-    title: "Website Design",
+  "Cinematograph": {
+    title: "Cinematograph",
     description: [
-      "Your digital storefront matters. We design and develop bespoke websites that serve as the perfect hub for your project.",
-      "Combining stunning aesthetics with seamless functionality for a flawless user experience.",
+      "Still images brought subtly to life.",
+      "Cinematographs blends high-end renders with gentle motion to create immersing, attention-grabbing visuals that elevate digital presentations without overwhelming the design.",
     ],
     videos: [
-      "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
-      "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4",
+      "./Cinematograph.mp4",
+    ],
+    images: [
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773643075/Background_zydf29.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773641570/invisibleHouse_day_uvztih.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773641573/invisibleHouse_night_ewddyv.jpg",
+    ],
+  },
+  "3D Floor Plans": {
+    title: "3D Floor Plans",
+    description: [
+      "Understand the project in one glance.",
+      "Our 3D floor plans translate technical drawings into clear, visually engaging representations that communicate layout and scale, making complex plans instantly accesible to non-technical audiences.",
+    ],
+    videos: [
+      ],
+    images: [
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773644641/Thousands_Oak_Project_final_second_floor_qlwjzv.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773644643/Westlake_Academy_Project_floorplan__zochh2.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773644649/Thousands_Oak_Project_first_floor_final_bg6utj.jpg",
+      "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773644655/Marfa_Project_Floorplan_j3jyec.jpg",
     ],
   },
 };
@@ -88,10 +117,35 @@ const Services = () => {
 
   const activeData = servicesData[activeService];
 
-  const mediaItems = [
-    ...(activeData.videos ?? []).map((src) => ({ type: "video", src })),
-    ...(activeData.images ?? []).map((src) => ({ type: "image", src })),
-  ];
+  const mediaItems = activeData.media
+    ? activeData.media
+    : [
+        ...(activeData.videos ?? []).map((src) => ({ type: "video", src })),
+        ...(activeData.images ?? []).map((src) => ({ type: "image", src })),
+      ];
+
+  // Custom helper component to handle the 360 Tour Logic
+  const Tour360 = ({ images }) => {
+    return (
+      <div className="w-full h-full relative">
+        {/* 360 Viewer */}
+        <Pannellum
+          width="100%"
+          height="100%"
+          image={images[0]} // Use the first image
+          pitch={10}
+          yaw={180}
+          hfov={110}
+          autoLoad
+          autoRotate={-2} // Keeps that nice, slow cinematic rotation
+          compass={false}
+          showZoomCtrl={false}
+          showFullscreenCtrl={false}
+          mouseZoom={false}
+        />
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-[#f4f4f5] text-gray-900 font-sans px-8 py-24 flex selection:bg-gray-300">
@@ -134,7 +188,7 @@ const Services = () => {
           {/* Top Section: Title and Description Grid */}
           <div className="flex flex-col xl:flex-row justify-between items-start gap-12 xl:gap-0 w-full mb-24">
             {/* Huge Title */}
-            <h1 className="text-[3.5rem] md:text-[5rem] lg:text-[5.5rem] font-medium leading-none tracking-tight xl:w-1/2">
+            <h1 className="text-[2rem] md:text-[3rem] lg:text-[4rem] font-medium leading-none tracking-tight xl:w-1/2">
               {activeData.title}
             </h1>
 
@@ -176,6 +230,8 @@ const Services = () => {
                     playsInline
                     loop
                   />
+                ) : item.type === "360" ? (
+                  <Tour360 images={item.images} />
                 ) : (
                   <img
                     src={item.src}
