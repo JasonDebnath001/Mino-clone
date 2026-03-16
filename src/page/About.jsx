@@ -1,22 +1,36 @@
-import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 const teamMembers = [
   {
     id: 1,
-    name: 'Caio Cavalcanti',
-    role: 'Partner',
-    description: "Caio is our artsy soul. When he's not catching waves or balancing on a slackline, he's sketching his thoughts. Don't be fooled by his calmness, as he loves adrenaline and bursts with creative ideas.",
+    name: "Caio Cavalcanti",
+    role: "Partner",
+    description:
+      "Caio is our artsy soul. When he's not catching waves or balancing on a slackline, he's sketching his thoughts. Don't be fooled by his calmness, as he loves adrenaline and bursts with creative ideas.",
     // Replace this with your actual image path
-    imageUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', 
+    imageUrl:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop",
   },
   {
     id: 2,
-    name: 'Prem',
-    role: 'Lead Developer',
-    description: "The technical architect behind our digital experiences. When he's not writing flawless React and GSAP animations, he's likely busy engineering the perfect menu system for a local cafe project.",
+    name: "Prem",
+    role: "Lead Developer",
+    description:
+      "The technical architect behind our digital experiences. When he's not writing flawless React and GSAP animations, he's likely busy engineering the perfect menu system for a local cafe project.",
     // Replace this with your actual image path
-    imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop', 
+    imageUrl:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    id: 3,
+    name: "Jason",
+    role: "Lead Developer",
+    description:
+      "The technical architect behind our digital experiences. When he's not writing flawless React and GSAP animations, he's likely busy engineering the perfect menu system for a local cafe project.",
+    // Replace this with your actual image path
+    imageUrl:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop",
   },
 ];
 
@@ -28,22 +42,33 @@ const About = () => {
 
   useEffect(() => {
     // We animate the text, then the team header, then stagger the image cards in
-    const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 1.2 } });
+    const tl = gsap.timeline({
+      defaults: { ease: "power2.out", duration: 1.2 },
+    });
 
     tl.fromTo(p1Ref.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1 })
-      .fromTo(p2Ref.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1 }, '-=0.8')
-      .fromTo(teamSectionRef.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1 }, '-=0.6')
+      .fromTo(
+        p2Ref.current,
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1 },
+        "-=0.8",
+      )
+      .fromTo(
+        teamSectionRef.current,
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1 },
+        "-=0.6",
+      )
       .fromTo(
         cardsRef.current,
         { y: 50, opacity: 0 },
         { y: 0, opacity: 1, stagger: 0.2, duration: 1 },
-        '-=0.8'
+        "-=0.8",
       );
   }, []);
 
   return (
     <div className="min-h-screen bg-[#f4f4f5] text-gray-900 font-sans px-6 py-24 flex flex-col items-center selection:bg-gray-300">
-      
       {/* Intro Paragraphs Section */}
       <div className="w-full max-w-7xl flex flex-col gap-24 md:gap-32 mb-40">
         <div ref={p1Ref} className="w-full max-w-5xl self-start text-left">
@@ -57,9 +82,10 @@ const About = () => {
 
         <div ref={p2Ref} className="w-full max-w-5xl self-end text-right">
           <p className="text-2xl md:text-3xl lg:text-[2.5rem] font-medium leading-[1.2] tracking-tight">
-            As part of Devotion Group, we fuse strategic insight with the art of visual storytelling,
-            crafting narratives that elevate your projects to the next level. Guided by a humanistic
-            perspective, committed partners for the long term.
+            As part of Devotion Group, we fuse strategic insight with the art of
+            visual storytelling, crafting narratives that elevate your projects
+            to the next level. Guided by a humanistic perspective, committed
+            partners for the long term.
           </p>
         </div>
       </div>
@@ -74,8 +100,8 @@ const About = () => {
           <div className="w-3 h-3 md:w-4 md:h-4 bg-black mb-3 md:mb-5"></div>
         </div>
 
-        {/* 2-Column Grid for exactly two pictures */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-1 max-w-4xl">
+        {/* 3-Column Grid for team members */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 max-w-6xl">
           {teamMembers.map((member, index) => (
             <div
               key={member.id}
@@ -105,7 +131,6 @@ const About = () => {
           ))}
         </div>
       </div>
-
     </div>
   );
 };
