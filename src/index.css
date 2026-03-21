@@ -17,4 +17,9 @@
   body {
     @apply bg-mino-bg text-mino-text font-sans antialiased overflow-x-hidden;
   }
+
+  /* Ensure reveal items are always clickable */
+  .reveal-item {
+    pointer-events: auto !important;
+  }
 }
