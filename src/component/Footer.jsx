@@ -1,42 +1,60 @@
 // src/components/Footer.jsx
-import React from "react";
+import React, { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { Link } from "react-router-dom";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
+  const containerRef = useRef(null);
+
+  useGSAP(
+    () => {
+      // Pure, elegant fade-in without any physical sliding
+      gsap.from(".reveal-item", {
+        opacity: 0,
+        duration: 1.5, // Slightly longer duration for a softer fade
+        stagger: 0.15, // Slightly slower stagger
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    },
+    { scope: containerRef }
+  );
+
   return (
-    <footer className="bg-black text-white pt-24 pb-8 px-6 md:px-12 lg:px-24 font-sans w-full overflow-hidden">
+    <footer 
+      ref={containerRef} 
+      // UPDATED: Tighter vertical padding (py-12 instead of pt-24/pb-24)
+      className="bg-black text-white py-12 px-6 md:px-12 lg:px-24 font-sans w-full"
+    >
       {/* --- TOP SECTION --- */}
-      <div className="flex flex-col lg:flex-row justify-between items-start gap-16 lg:gap-8">
+      {/* UPDATED: Reduced the gap to keep it compact */}
+      <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-8">
+        
         {/* Left Side: Large Vertical Navigation */}
-        <nav className="flex flex-col space-y-1 text-4xl md:text-5xl lg:text-[4rem] font-medium tracking-tight leading-tight">
-          <a
-            href="#"
-            className="text-gray-500 hover:text-white transition-colors"
-          >
-            Home
-          </a>
-          <a href="#" className="hover:text-gray-400 transition-colors">
-            Works
-          </a>
-          <a href="#" className="hover:text-gray-400 transition-colors">
-            Services
-          </a>
-          <a href="#" className="hover:text-gray-400 transition-colors">
-            About Us
-          </a>
-          <a href="#" className="hover:text-gray-400 transition-colors">
-            Careers
-          </a>
-          <a href="#" className="hover:text-gray-400 transition-colors">
-            Blog
-          </a>
+        {/* UPDATED: Slightly scaled down the text on desktop from 4rem to 3.5rem */}
+        <nav className="flex flex-col space-y-1 text-4xl md:text-5xl lg:text-[3.5rem] font-medium tracking-tight leading-tight">
+          <Link to="/" className="reveal-item text-gray-500 hover:text-white transition-colors inline-block">Home</Link>
+          <Link to="/works" className="reveal-item hover:text-gray-400 transition-colors inline-block">Works</Link>
+          <Link to="/services" className="reveal-item hover:text-gray-400 transition-colors inline-block">Services</Link>
+          <Link to="/about" className="reveal-item hover:text-gray-400 transition-colors inline-block">About Us</Link>
+          <Link to="/careers" className="reveal-item hover:text-gray-400 transition-colors inline-block">Careers</Link>
+          <Link to="/blog" className="reveal-item hover:text-gray-400 transition-colors inline-block">Blog</Link>
         </nav>
 
         {/* Right Side: Contact, Socials, and Newsletter */}
         <div className="flex flex-col w-full lg:w-[450px] xl:w-[500px] mt-4 lg:mt-0">
-          {/* Top Row: Contact & Voice */}
-          <div className="flex justify-between items-start mb-16">
+          <div className="flex justify-between items-start mb-12">
+            
             {/* Contact Column */}
-            <div>
+            <div className="reveal-item">
               <h4 className="text-[10px] md:text-xs font-medium uppercase tracking-widest text-gray-400 mb-4">
                 Contact
               </h4>
@@ -47,24 +65,18 @@ const Footer = () => {
             </div>
 
             {/* Our Voice Column */}
-            <div className="pr-8">
+            <div className="reveal-item pr-8">
               <h4 className="text-[10px] md:text-xs font-medium uppercase tracking-widest text-gray-400 mb-4">
                 Our Voice
               </h4>
               <ul className="space-y-1 text-sm font-light">
                 <li>
-                  <a
-                    href="https://www.instagram.com/ipoly_studio/?hi=en"
-                    className="hover:text-gray-300 transition-colors flex items-center justify-between w-24"
-                  >
+                  <a href="https://www.instagram.com/ipoly_studio/?hi=en" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors flex items-center justify-between w-24">
                     Instagram <span className="text-[10px]">↗</span>
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="https://www.linkedin.com/company/ipoly-studio"
-                    className="hover:text-gray-300 transition-colors flex items-center justify-between w-24"
-                  >
+                  <a href="https://www.linkedin.com/company/ipoly-studio" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors flex items-center justify-between w-24">
                     Linkedin <span className="text-[10px]">↗</span>
                   </a>
                 </li>
@@ -73,7 +85,7 @@ const Footer = () => {
           </div>
 
           {/* Bottom Row: Newsletter Subscription */}
-          <div>
+          <div className="reveal-item">
             <h4 className="text-[10px] md:text-xs font-medium uppercase tracking-widest text-gray-400 mb-6">
               Subscribe to our newsletter
             </h4>
@@ -98,19 +110,21 @@ const Footer = () => {
       </div>
 
       {/* --- BOTTOM SECTION: Giant Logo & Copyright --- */}
-      <div className="flex flex-col md:flex-row justify-between items-end mt-24 md:mt-32 gap-8 md:gap-0">
+      {/* UPDATED: Slashed mt-32 down to mt-16 to pull the bottom section up */}
+      <div className="flex flex-col md:flex-row justify-between items-end mt-16 lg:mt-20 gap-8 md:gap-0">
+        
         {/* Giant Logo */}
-        <div className="w-full md:w-[70%]">
+        <div className="reveal-item w-full md:w-auto">
           <img
             src="./logo.png"
             alt="Mino Logo"
-            className="w-full h-auto object-contain object-left"
-            // Ensures the image scales to fill the width but stays aligned to the left
+            // UPDATED: Hardcoded responsive widths instead of w-full to keep it under control
+            className="w-48 md:w-64 lg:w-72 h-auto object-contain object-left" 
           />
         </div>
 
         {/* Copyright */}
-        <div className="w-full md:w-auto text-left md:text-right">
+        <div className="reveal-item w-full md:w-auto text-left md:text-right">
           <p className="text-[10px] md:text-xs text-gray-400 font-light leading-snug tracking-wide">
             MMXXV © Ipoly Studio. ALL
             <br />

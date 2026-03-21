@@ -21,7 +21,7 @@ const servicesData = [
     id: "02",
     title: "CGI and Still Imagery",
     desc: "A whole story behind every picture.",
-    media: "./bedroom.jpg",
+    media: "https://res.cloudinary.com/dxzuvk7np/image/upload/v1773641483/ISSEI_1_yoqdtz.jpg",
     type: "image",
   },
   {
@@ -133,7 +133,8 @@ const StoriesReveal = () => {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full bg-[#111111] overflow-hidden"
+      // ADDED: z-10 ensures it slides OVER the sticky Statement component
+      className="relative z-10 h-screen w-full bg-[#111111] overflow-hidden" 
     >
       {servicesData.map((service, index) => (
         <div

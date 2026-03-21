@@ -4,7 +4,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
-// Register the ScrollTrigger plugin with GSAP
 gsap.registerPlugin(ScrollTrigger);
 
 const Statement = () => {
@@ -13,29 +12,59 @@ const Statement = () => {
 
   useGSAP(
     () => {
-      // Animate the specific word to red based on scroll position
-      gsap.to(wordRef.current, {
-        color: "#e04b4b", // The coral/red color from your image
+      // 1. Staggered Slide-Up Reveal (from earlier)
+      gsap.from(".slide-line", {
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 75%", // Starts when the top of this section hits 75% down the screen
-          end: "center center", // Ends when the section reaches the center of the screen
-          scrub: true, // This ties the animation progress directly to the scrollbar!
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // 2. The Color Scrub (from earlier)
+      gsap.to(wordRef.current, {
+        color: "#e04b4b",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 60%",
+          end: "center center",
+          scrub: true,
+        },
+      });
+
+      // 3. NEW: Push-back and fade out as it gets covered!
+      gsap.to(containerRef.current, {
+        opacity: 0,
+        scale: 0.9, // Slightly shrinks it into the background
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top", // Starts the moment the section hits the top of the screen
+          end: "+=100%", // Continues for the height of the section
+          scrub: true,
         },
       });
     },
-    { scope: containerRef },
+    { scope: containerRef }
   );
 
   return (
     <section
       ref={containerRef}
-      className="h-[80vh] md:h-screen w-full bg-[#111111] flex items-center justify-center px-6"
+      className="sticky top-0 z-0 h-[80vh] md:h-screen w-full bg-[#111111] flex items-center justify-center px-6"
     >
       <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-medium text-center leading-snug tracking-tight">
-        We Convert Your Vision and Ideas Into
+        <span className="slide-line inline-block">
+          We Convert Your Vision and Ideas Into
+        </span>
         <br />
-        High-End Architectural <span ref={wordRef}>Visualization Experiences.</span>
+        <span className="slide-line inline-block mt-2">
+          High-End Architectural <span ref={wordRef}>Visualization Experiences.</span>
+        </span>
       </h2>
     </section>
   );
